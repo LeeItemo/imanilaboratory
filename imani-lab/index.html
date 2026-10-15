@@ -36,6 +36,7 @@
         font-family: 'DM Sans', sans-serif;
       }
       .page-shell { display: none !important; }
+      .modal.hidden { display: none !important; }
       .staff-app { min-height: 100vh; }
       .staff-header {
         min-height: 76px;
@@ -313,7 +314,6 @@
         <nav class="main-nav" aria-label="Main navigation">
           <a href="#overview">Overview</a>
           <a href="#treatments">Treatments</a>
-          <a href="#wellness">Wellness</a>
           <a href="#visits">Visits</a>
           <a href="#admin">Admin</a>
         </nav>
@@ -468,29 +468,6 @@
               <p>Medication review, refill coordination, and treatment-planning support for sustained recovery.</p>
             </article>
           </div>
-        </section>
-
-        <section class="content-grid wellness-grid" id="wellness">
-          <div class="section-header">
-            <div>
-              <p class="eyebrow accent">Articles, blogs & wellness guides</p>
-              <h3>Health information for patients</h3>
-            </div>
-            <button type="button" class="secondary-btn compact" id="viewBlogBtn">View all posts</button>
-          </div>
-
-          <div class="article-grid" id="articleList" aria-live="polite"></div>
-        </section>
-
-        <section class="blog-showcase" id="blogShowcase">
-          <div class="section-header">
-            <div>
-              <p class="eyebrow accent">Stories and guidance</p>
-              <h3>Latest blog posts</h3>
-            </div>
-          </div>
-
-          <div class="blog-grid" id="blogGrid"></div>
         </section>
 
         <section class="bottom-grid notices-grid">
@@ -899,7 +876,6 @@
       const articleLinkModal = document.getElementById('articleLinkModal');
       const newArticleBtn = document.getElementById('newArticleBtn');
       const resetArticleBtn = document.getElementById('resetArticleBtn');
-      const viewBlogBtn = document.getElementById('viewBlogBtn');
       const adminLoginBtn = document.getElementById('adminLoginBtn');
       const closeArticleModalBtn = document.getElementById('closeArticleModalBtn');
       const cancelArticleModalBtn = document.getElementById('cancelArticleModalBtn');
@@ -1024,6 +1000,7 @@
       }
 
       function renderArticles() {
+        if (!articleList || !blogGrid) return;
         const articles = getArticles();
         articleList.innerHTML = '';
         blogGrid.innerHTML = '';
@@ -1231,10 +1208,6 @@
       adminLoginBtn.addEventListener('click', accessAdminPanel);
       closeArticleModalBtn.addEventListener('click', closeArticleModal);
       cancelArticleModalBtn.addEventListener('click', closeArticleModal);
-      viewBlogBtn.addEventListener('click', () => {
-        document.getElementById('blogShowcase').scrollIntoView({ behavior: 'smooth' });
-      });
-
       renderArticles();
       renderAppointments();
       renderInventory();
